@@ -101,6 +101,12 @@ func (l *ThreadSafeList) PushFrontList(other *list.List) {
 	l.list.PushFrontList(other)
 }
 
+func (l *ThreadSafeList) Remove(e * list.Element) interface{} {
+	l.Lock()
+	defer l.Unlock()
+	return l.list.Remove(e)
+}
+
 // locks the List
 func (l *ThreadSafeList) Lock() {
 	l.lockMutex.Lock()
